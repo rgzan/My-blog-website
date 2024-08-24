@@ -1,0 +1,87 @@
+*{
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+}
+.banner{
+    width: 100%;
+    height: 100vh;
+    background-image: linear-gradient(rgba(99,0,50,0.75), rgba(0,43,0.75))
+}
+.navbar{
+    width: 85%;
+    margin: auto;
+    padding: 35px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.ex{
+    width: 120px;
+    cursor: pointer;
+}
+body {
+    font-family:Arial;
+}
+
+input[type='text'], input[type='email'] {
+    border:1px solid green;
+    width:15%;
+    padding: 5px;
+    border-radius: 20px;
+}
+label{
+    font-weight: bold;
+    color:green;
+}
+input[type='button'] {
+    background-color:purple;
+    border:none;
+    border-radius:20px;
+    padding:10px 20px;
+    font-weight:bold;
+    color:white;
+}
+input[type='button']:hover {
+    background-color: gray;
+}
+.menu-icon {
+    cursor:pointer;
+}
+.bar{
+    width: 25px;
+    height: 3px;
+    background-color: white;
+    margin: 6px 0;
+    transition: 0.4s;
+}
+.bar.middle {
+    opacity: 1;
+}
+.navbar {
+    padding: 15px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.menu-items {
+    display: flex;
+    flex-direction: column; /* Align menu items vertically */
+    visibility: hidden;
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+    transition: visibility 0s, opacity 0.5s height 0.5s;
+}
+.menu-items.open {
+    visibility: visible;
+    opacity: 1;
+    height: auto;
+}
+.menu-items a {
+    color: white;
+    text-decoration: none;
+    margin: 15px 0; /* Adjust margin for more spacing between menu items */
+    font-size: 35px;
+    /* Add additional styling as needed */
+}

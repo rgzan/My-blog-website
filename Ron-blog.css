@@ -1,33 +1,34 @@
 *{
     margin: 0;
     font-family: 'Arial', sans-serif;
+    box-sizing:border-box;
 }
-.overlay{
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    background:rgba(0,0,0,0.5);
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.5s, visibility 0.5s;
-    z-index:9;
-    pointer-events: none;
+body {
+    min-height: 100vh;
+    background-image: url(early-morning.jpg);
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    z-index: 15;
+    background-repeat:no-repeat;
 }
-.overlay.open{
-    opacity:1;
-    visibility: visible;
-    pointer-events: auto;
+#clock{
+    background:black;
+    color:white;
+    position: absolute;
+    top:10px;
+    left:45%;
+    font-size:30px;
+    border-radius:8px;
+    text-shadow:2px 2px 5px black;
 }
 .banner{
-    width: 100%;
-    height: 100vh;
-    background-image:url(early-morning.jpg);
-    background-position: center;
-    background-size:cover;
-    background-repeat: no-repeat;
-    position:relative;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    height:100vh;
+    position:absolute;
+    z-index: 1;
 }
 .banner::before{
     content:'';
@@ -36,9 +37,26 @@
     left:0;
     width:100%;
     height:100%;
-    background-color: rgba(0,0,0,0.5);
     z-index:9;
     pointer-events:none;
+}
+.overlay{
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.5);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s, visibility 0.5s;
+    z-index:1;
+    pointer-events: none;
+}
+.overlay.open{
+    opacity:1;
+    visibility: visible;
+    pointer-events: auto;
 }
 .navbar {
     padding: 15px;
@@ -46,8 +64,10 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    position: relative;
-    z-index: 9;
+    position: absolute;
+    top:0;
+    left:0;
+    z-index: 20;
 }
 .menu-icon{
     cursor:pointer;
@@ -56,19 +76,32 @@
     width: 25px;
     height: 3px;
     background-color: white;
-    margin: 6px 0;
+    margin: 6px;
     transition: 0.4s;
+    opacity: 1;
+    animation: barAnimation 0.8s ease-in-out;
+}
+@keyframes barAnimation{
+    0% {
+        transform:scaleX(0);
+    }
+    100% {
+        transform:scaleX(1);
+    }
 }
 .menu-items {
     display: flex;
     flex-direction: column;
+    position:fixed;
+    top:60px;
     visibility: hidden;
     opacity: 0;
     height: 0;
     overflow: hidden;
     transition: visibility 0s, opacity 0.5s height 0.5s;
-    background:transparent;
-    color:white;
+    background:rgba(0,0,0,0.9);
+    padding:10px;
+    z-index:11;
 }
 .menu-items.open {
     visibility: visible;
@@ -76,11 +109,12 @@
     height: auto;
     background:#000;
 }
-.menu-items a {
-    color: white;
+.menu-items a{
     text-decoration: none;
-    margin: 15px 0;
-    font-size: 35px;
+    margin: 2px 0;
+    font-size: 30px;
+    color:white;
+    padding:10px;
 }
 .content{
     width: 100%;
@@ -122,6 +156,7 @@ span{
 }
 button:hover span {
     width: 100%;
+    color:red;
 }
 button:hover {
     border:none;

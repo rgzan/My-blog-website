@@ -1,29 +1,22 @@
 *{
     margin: 0;
     font-family: 'Arial', sans-serif;
-    box-sizing:border-box;
 }
 body {
     min-height: 100vh;
     background-image: url(early-morning.jpg);
     background-size: cover;
     background-position: center;
-    background-repeat:no-repeat;
-    display:flex;
-    justify-content: center;
-    align-items: center;
     position: relative;
-    z-index: 1;
+    z-index: 15;
 }
 .banner{
     display:flex;
     justify-content: center;
     align-items: center;
     height:100vh;
-    width:100%;
     position:relative;
     z-index: 1;
-    overflow: hidden;
 }
 .banner::before{
     content:'';
@@ -62,7 +55,7 @@ body {
     position: absolute;
     top:0;
     left:0;
-    z-index: 11;
+    z-index: 20;
 }
 .menu-icon{
     cursor:pointer;
@@ -71,7 +64,7 @@ body {
     width: 25px;
     height: 3px;
     background-color: white;
-    margin: 6px;
+    margin: 6px 0;
     transition: 0.4s;
     opacity: 1;
     animation: barAnimation 0.8s ease-in-out;
@@ -91,8 +84,8 @@ body {
     opacity: 0;
     height: 0;
     overflow: hidden;
-    transition: visibility 0s, opacity 0.5s, height 0.5s;
-    background: transparent;
+    transition: visibility 0s, opacity 0.5s height 0.5s;
+    background:transparent;
     z-index: 20;
 }
 .menu-items.open {
@@ -107,21 +100,4 @@ body {
     font-size: 30px;
     color:white;
     padding:10px;
-}
-.videos-section {
-    display:flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    margin:0 auto;
-    width:100%;
-    max-width:1000px;
-    padding:20px;
-}
-.videos-section h2 {
-    margin-bottom: 20px;
-    color:white;
-    background:transparent;
-    text-align:center;
 }

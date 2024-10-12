@@ -6,9 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact</title>
     <link rel="stylesheet" href="Contact.css">
-    <script src="Contact.js"></script>
 </head>
 <body>
+    <div class="overlay" onclick="toggleMenu()"></div>
     <div class="banner">
         <div class="navbar">
             <div class="menu-icon" onclick="toggleMenu()">
@@ -19,21 +19,31 @@
             <div class="menu-items">
                 <a href="Ron_blog.html">Home</a>
                 <a href="Video.html">Video</a>
-                <a href="Contact.html">Contact</a>
-                <a href="???.html">???</a>
-                <a href="???.html">???</a>
+                <a href="Contact.html">Contact Us</a>
+                <a href="Gallery.html">Gallery</a>
+                <a href="Resume.html">Resume</a>
             </div>
-        <div class="Information">Contact Me: </div>
-        <div class="form">
-            <form>
-                <label for="name">Name: </label>
-                <input type="text" id="name" placeholder="John Smith">
-                <br><br>
-                <label for="email">Email: </label>
-                <input type="email" id="email" placeholder="name@domain.com">
-                <br><br>
-                <input type="button" value="Send">
-            </form>
         </div>
     </div>
+    <div class="contact-container">
+        <div class="Information">Contact Me:</div>
+            <div class="form">
+                <form>
+                    <label for="name">Name: </label>
+                    <input type="text" id="name" placeholder="John Smith">
+                    <br><br>
+                    <label for="email">Email: </label>
+                    <input type="email" id="email" placeholder="name@domain.com">
+                    <br><br>
+                    <label for="message">Message</label>
+                    <textarea id="message" placeholder="Write your message here" rows="5"></textarea>
+                    <br><br>
+                    <input type="button" value="Send">
+                </form>
+            </div>
+        </div>
+    </div>
+    <div id="alert-message" class="hidden"></div>
+<script src="Contact.js"></script>
+</body>
 </html>

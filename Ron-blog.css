@@ -1,44 +1,34 @@
 *{
     margin: 0;
-    font-family: 'Arial', sans-serif;
+    padding:0;
     box-sizing:border-box;
 }
 body {
-    min-height: 100vh;
-    background-image: url(early-morning.jpg);
-    background-size: cover;
-    background-position: center;
-    position: relative;
-    z-index: 15;
-    background-repeat:no-repeat;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    overflow:hidden;
+    margin:0;
+    font-family: 'Arial', sans-serif;
+    height:100vh;
+}
+#myCanvas {
+    position: fixed;
+    left:0;
+    top:0;
+    width:100%;
+    height:100%;
 }
 #clock{
     background:black;
     color:white;
     position: absolute;
-    top:10px;
-    left:45%;
     font-size:30px;
     border-radius:8px;
     text-shadow:2px 2px 5px black;
-}
-.banner{
-    display:flex;
-    justify-content: center;
-    align-items: center;
-    height:100vh;
-    position:absolute;
-    z-index: 1;
-}
-.banner::before{
-    content:'';
-    position:absolute;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    z-index:9;
-    pointer-events:none;
+    margin:20px;
+    padding:10px;
 }
 .overlay{
     position:absolute;
@@ -60,23 +50,21 @@ body {
 }
 .navbar {
     padding: 15px;
-    color: white;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
     position: absolute;
-    top:0;
-    left:0;
+    top: 0;
+    left: 0;
     z-index: 20;
 }
 .menu-icon{
     cursor:pointer;
+    display:flex;
+    flex-direction:column;
 }
 .bar{
     width: 25px;
     height: 3px;
     background-color: white;
-    margin: 6px;
+    margin: 4px 0;
     transition: 0.4s;
     opacity: 1;
     animation: barAnimation 0.8s ease-in-out;
@@ -118,30 +106,39 @@ body {
 }
 .content{
     width: 100%;
-    position: absolute;
-    top:50%;
-    transform: translateY (-50%);
-    text-align:center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
     color:#fff;
 }
-.content p{
-    margin: 20px auto;
-    font-weight: 100;
-    line-height: 25px;
+h1{
+    font-size:48px;
+    flex-direction:column;
+    align-items:center;
+    gap:20px;
+}
+.button-container{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    gap:20px;
+    margin-top: 20px;
 }
 button{
     width:200px;
     padding: 15px 0;
     text-align:center;
-    margin: 20px 10px;
+    margin: 15px 0;
     border-radius: 25px;
     font-weight:bold;
     border:2px solid #009688;
-    background:transparent;
+    background: transparent;
     color:#fff;
     cursor:pointer;
-    position:relative;
     overflow: hidden;
+    position: relative;
 }
 span{
     background: #009688;
@@ -156,7 +153,6 @@ span{
 }
 button:hover span {
     width: 100%;
-    color:red;
 }
 button:hover {
     border:none;

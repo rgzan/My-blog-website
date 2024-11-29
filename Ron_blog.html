@@ -6,15 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ronald's blog</title>
     <link rel="stylesheet" href="Ron-blog.css">
-    <script src="Ron_blog.js"></script>
+
 </head>
 <body>
-    <div id="clock">--</div>
-    <div id="Current-Date">
-        
-    </div>
+    <canvas id="myCanvas"></canvas>
+    <div id="clock" style="position:fixed; top:10px; right:10px; color:lime; font-size:20px;">--</div>
     <div class="overlay" onclick="toggleMenu()"></div>
-    <div class="banner">
+    <script src="Ron_blog.js" defer></script>
         <div class="navbar">
             <div class="menu-icon" onclick="toggleMenu()">
                 <div class="bar"></div>
@@ -29,13 +27,14 @@
                 <a href="Resume.html">Resume</a>
             </div>
         </div>
-    </div>
     <div class="content">
-        <h1>Welcome to!</h1>
-        <p>sjojsomakm </br> 3iowehweknsd</p>
-        <div>
-            <button type="button"><span></span>Click me</button>
-            <button type="button"><span></span>Click me</button>
+        <h1>Welcome to <br />Ronald's website</h1>
+        <div class="button-container">
+            <button type="button" onclick="window.location.href='https://github.com/rgzan'"><span></span>Github</button>
+            <button type="button" onclick="window.location.href='https://www.sololearn.com/en/profile/8597689'"><span></span>Sololearn</button>
+            <button type="button" onclick="window.location.href='#'"><span></span>Test</button>
+            <button type="button" onclick="window.location.href='#'"><span></span>Test</button>
+            <button type="button" onclick="window.location.href='#'"><span></span>test</button>
     </div>
     </div>
 </body>

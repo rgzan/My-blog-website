@@ -1,9 +1,10 @@
 *{
     margin: 0;
+    padding:0;
     font-family: 'Arial', sans-serif;
     box-sizing: border-box;
 }
-body {
+body{
     min-height: 100vh;
     background-image: url(early-morning.jpg);
     background-size: cover;
@@ -11,6 +12,10 @@ body {
     position: relative;
     z-index: 15;
     background-repeat:no-repeat;
+    justify-content: center;
+    align-items: center;
+    display:flex;
+    min-height: 100vh;
 }
 
 .banner{
@@ -49,27 +54,30 @@ body {
     visibility: visible;
     pointer-events: auto;
 }
-.navbar {
+.navbar{
     padding: 15px;
     color: white;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    position:absolute;
+    position:fixed;
     top:0;
     left:0;
     z-index:20;
 }
-.menu-icon {
+.menu-icon{
     cursor:pointer;
+    display:flex;
+    flex-direction:column;
 }
 .bar{
     width: 25px;
     height: 3px;
     background-color: white;
-    margin: 6px;
+    margin: 4px;
     transition: 0.4s;
     opacity: 1;
+    left:0;
     animation: barAnimation 0.8s ease-in-out;
 }
 @keyframes barAnimation{
@@ -80,7 +88,7 @@ body {
         transform:scaleX(1);
     }
 }
-.menu-items {
+.menu-items{
     display: flex;
     flex-direction: column;
     position:fixed;
@@ -94,13 +102,13 @@ body {
     padding:10px;
     z-index:11;
 }
-.menu-items.open {
+.menu-items.open{
     visibility: visible;
     opacity: 1;
     height: auto;
     background:#000;
 }
-.menu-items a {
+.menu-items a{
     text-decoration: none;
     margin: 2px 0;
     font-size: 30px;
@@ -157,7 +165,7 @@ textarea {
     padding: 10px;
     border-radius: 5px;
     margin-bottom:10px;
-    resize:horizontal;
+    resize:both;
 }
 input[type='button'] {
     background-color:darkcyan;
@@ -175,6 +183,12 @@ input[type='button']:hover {
 }
 .hidden {
     display: none;
+}
+#alert-message{
+    text-align:center;
+    margin-top:15px;
+    width:100%;
+    max-width:300px;
 }
 .alert-success{
     color:#155724;

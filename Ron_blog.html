@@ -5,14 +5,161 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ronald's blog</title>
-    <link rel="stylesheet" href="Ron-blog.css">
-
 </head>
+<style>
+* {
+    margin: 0;
+    padding:0;
+    box-sizing:border-box;
+}
+body {
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin:0;
+    font-family: 'Arial', sans-serif;
+    height:100vh;
+}
+#myCanvas {
+    position: fixed;
+    left:0;
+    top:0;
+    width:100%;
+    height:100%;
+}
+.overlay{
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.5);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s, visibility 0.5s;
+    z-index:1;
+    pointer-events: none;
+}
+.overlay.open{
+    opacity:1;
+    visibility: visible;
+    pointer-events: auto;
+}
+.navbar {
+    padding: 15px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 20;
+}
+.menu-icon{
+    cursor:pointer;
+    display:flex;
+    flex-direction:column;
+}
+.bar{
+    width: 25px;
+    height: 3px;
+    background-color: white;
+    margin: 4px 0;
+    transition: 0.4s;
+    opacity: 1;
+    animation: barAnimation 0.8s ease-in-out;
+}
+@keyframes barAnimation{
+    0% {
+        transform:scaleX(0);
+    }
+    100% {
+        transform:scaleX(1);
+    }
+}
+.menu-items {
+    display: flex;
+    flex-direction: column;
+    position:fixed;
+    top:60px;
+    visibility: hidden;
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+    transition: visibility 0s, opacity 0.5s height 0.5s;
+    background:rgba(0,0,0,0.9);
+    padding:10px;
+    z-index:11;
+}
+.menu-items.open {
+    visibility: visible;
+    opacity: 1;
+    height: auto;
+    background:#000;
+}
+.menu-items a{
+    text-decoration: none;
+    margin: 2px 0;
+    font-size: 30px;
+    color:white;
+    padding:10px;
+}
+.content{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color:#fff;
+}
+h1{
+    font-size:48px;
+    flex-direction:column;
+    align-items:center;
+    gap:20px;
+}
+.button-container{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    gap:20px;
+    margin-top: 20px;
+}
+button{
+    width:200px;
+    padding: 15px 0;
+    text-align:center;
+    margin: 15px 0;
+    border-radius: 25px;
+    font-weight:bold;
+    border:2px solid #009688;
+    background: transparent;
+    color:#fff;
+    cursor:pointer;
+    overflow: hidden;
+    position: relative;
+}
+span{
+    background: #009688;
+    height:100%;
+    width:0;
+    border-radius:25px;
+    position:absolute;
+    left:0;
+    bottom:0;
+    z-index:-1;
+    transition:0.5s;
+}
+button:hover span {
+    width: 100%;
+}
+button:hover {
+    border:none;
+}
+</style>
 <body>
     <canvas id="myCanvas"></canvas>
     <div id="clock" style="position:fixed; top:10px; right:10px; color:lime; font-size:20px;">--</div>
     <div class="overlay" onclick="toggleMenu()"></div>
-    <script src="Ron_blog.js" defer></script>
         <div class="navbar">
             <div class="menu-icon" onclick="toggleMenu()">
                 <div class="bar"></div>
@@ -37,5 +184,89 @@
             <button type="button" onclick="window.location.href='#'"><span></span>test</button>
     </div>
     </div>
+<script>
+    const body = document.body;
+body.style.background = 'black';
+
+const canvas = document.getElementById('myCanvas');
+const ctx = canvas.getContext('2d');
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+const letters = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
+const movingLetters = [];
+
+letters.forEach(letter => {
+  movingLetters.push({
+    char: letter.toUpperCase(),
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    speedX: (Math.random() - 0.5) * 2,
+    speedY: (Math.random() - 0.5) * 2,
+    rotation: Math.random() * 360,
+    rotationSpeed: (Math.random() - 0.5) * 2,
+    opacity: Math.random(),
+    fadeSpeed: Math.random() * 0.01,
+    curveAmplitude: Math.random() * 1 + 5,
+    curveFrequency: Math.random() * 0.1 + 0.1,
+  });
+});
+
+function animation() {
+  ctx.clearRect(0,0, canvas.width, canvas.height);
+
+movingLetters.forEach(letter => {
+  ctx.save();
+
+  ctx.globalAlpha = letter.opacity;
+  ctx.translate(letter.x, letter.y);
+  ctx.rotate((letter.rotation * Math.PI) / 180);
+
+  ctx.font = '20px Arial, sans-serif';
+  ctx.fillStyle = 'lime';
+  ctx.fillText(letter.char,0,0);
+
+  ctx.restore();
+
+  letter.x += letter.speedX;
+  letter.y += letter.speedY;
+  letter.rotation += letter.rotationSpeed;
+  letter.opacity += letter.fadeSpeed;
+
+  letter.y += Math.sin(letter.x * letter.curveFrequency) * letter.curveAmplitude;
+
+  if (letter.x < 0 || letter.x > canvas.width) letter.speedX *= -1;
+  if (letter.y < 0 || letter.y > canvas.height) letter.speedY *= -1;
+  if (letter.opacity <= 0 || letter.opacity >= 1) letter.fadeSpeed *= -1;
+});
+requestAnimationFrame(animation);
+}
+animation();
+
+
+function UpdateTime(){
+    const d = new Date();
+    var hours = d.getHours();
+    var mins = d.getMinutes();
+    var secs = d.getSeconds();
+
+    hours = hours < 10 ? '0' + hours : hours;
+    mins = mins < 10 ? '0' + mins : mins;
+    secs = secs < 10 ? '0' + secs : secs;
+document.getElementById('clock').innerHTML = `${hours}:${mins}:${secs}`;
+}
+setInterval(UpdateTime, 1000);
+
+UpdateTime();
+
+function toggleMenu() {
+    const menuItems = document.querySelector('.menu-items');
+    const overlay = document.querySelector(".overlay");
+
+    menuItems.classList.toggle('open');
+    overlay.classList.toggle('open');
+}
+</script>
 </body>
 </html>

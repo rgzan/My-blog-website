@@ -8,6 +8,116 @@
     <link rel="stylesheet" href="Resume.css">
     <script src="Resume.js"></script>
 </head>
+<style>
+    *{
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+}
+body {
+    min-height: 100vh;
+    background-image: url(early-morning.jpg);
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    z-index: 15;
+}
+.banner{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    height:100vh;
+    position:relative;
+    z-index: 1;
+}
+.banner::before{
+    content:'';
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    z-index:9;
+    pointer-events:none;
+}
+.overlay{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.5);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s, visibility 0.5s;
+    z-index:1;
+    pointer-events: none;
+}
+.overlay.open{
+    opacity:1;
+    visibility: visible;
+    pointer-events: auto;
+}
+.navbar {
+    padding: 15px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    position: absolute;
+    top:0;
+    left:0;
+    z-index: 20;
+}
+.menu-icon{
+    cursor:pointer;
+    display:flex;
+    flex-direction:column;
+}
+.bar{
+    width: 25px;
+    height: 3px;
+    background-color: white;
+    margin: 4px 0;
+    transition: 0.4s;
+    opacity: 1;
+    animation: barAnimation 0.8s ease-in-out;
+}
+@keyframes barAnimation{
+    0% {
+        transform:scaleX(0);
+    }
+    100% {
+        transform:scaleX(1);
+    }
+}
+.menu-items {
+    display: flex;
+    flex-direction: column;
+    position:fixed;
+    top:60px;
+    visibility: hidden;
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+    transition: visibility 0s, opacity 0.5s height 0.5s;
+    background:rgba(0,0,0,0.9);
+    padding:10px;
+    z-index:11;
+}
+.menu-items.open {
+    visibility: visible;
+    opacity: 1;
+    height: auto;
+    background:#000;
+}
+.menu-items a{
+    text-decoration: none;
+    margin: 2px 0;
+    font-size: 30px;
+    color:white;
+    padding:10px;
+}
+</style>
 <body>
     <div class="overlay" onclick="toggleMenu()"></div>
     <div class="banner">
@@ -26,5 +136,13 @@
             </div>
         </div>
     </div>
+<script>
+    function toggleMenu() {
+    const menuItems = document.querySelector('.menu-items')
+    const middleBar = document.querySelector('.bar.middle')
+    menuItems.classList.toggle('open');
+    middleBar.classList.toggle('hidden');
+}
+</script>
 </body>
 </html>

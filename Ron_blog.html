@@ -7,266 +7,510 @@
     <title>Ronald's blog</title>
 </head>
 <style>
-* {
+*{
     margin: 0;
     padding:0;
     box-sizing:border-box;
 }
-body {
+body{
+    display:grid;
+    grid-template-rows: auto;
+    grid-template-rows: 80px auto;
+    background-image:url('fiction.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; 
+}
+/* Navbar Container */
+header{
     display:flex;
-    justify-content: center;
     align-items: center;
-    flex-direction: column;
-    margin:0;
-    font-family: 'Arial', sans-serif;
-    height:100vh;
-}
-#myCanvas {
-    position: fixed;
-    left:0;
-    top:0;
+    justify-content: space-between;
+    position:relative;
+    box-shadow: 0px 1px 5px #000000;
     width:100%;
-    height:100%;
-}
-.overlay{
-    position:absolute;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    background:rgba(0,0,0,0.5);
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.5s, visibility 0.5s;
-    z-index:1;
-    pointer-events: none;
-}
-.overlay.open{
-    opacity:1;
-    visibility: visible;
-    pointer-events: auto;
-}
-.navbar {
-    padding: 15px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 20;
-}
-.menu-icon{
-    cursor:pointer;
-    display:flex;
-    flex-direction:column;
-}
-.bar{
-    width: 25px;
-    height: 3px;
-    background-color: white;
-    margin: 4px 0;
-    transition: 0.4s;
-    opacity: 1;
-    animation: barAnimation 0.8s ease-in-out;
-}
-@keyframes barAnimation{
-    0% {
-        transform:scaleX(0);
-    }
-    100% {
-        transform:scaleX(1);
-    }
-}
-.menu-items {
-    display: flex;
-    flex-direction: column;
-    position:fixed;
-    top:60px;
-    visibility: hidden;
-    opacity: 0;
-    height: 0;
-    overflow: hidden;
-    transition: visibility 0s, opacity 0.5s height 0.5s;
-    background:rgba(0,0,0,0.9);
-    padding:10px;
-    z-index:11;
-}
-.menu-items.open {
-    visibility: visible;
-    opacity: 1;
-    height: auto;
-    background:#000;
-}
-.menu-items a{
-    text-decoration: none;
-    margin: 2px 0;
-    font-size: 30px;
-    color:white;
-    padding:10px;
-}
-.content{
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    color:#fff;
+    background:#000000aa;
 }
 h1{
-    font-size:48px;
-    flex-direction:column;
-    align-items:center;
-    gap:20px;
+    cursor:pointer;
+    font-size:75px;
+    margin-left:32px;
+    color:#c6c6c6;
 }
-.button-container{
+.menu-icon{
+    display:none;
+    flex-direction:column;
+    justify-content: space-between;
+    width:40px;
+    height:35px;
+    cursor:pointer;
+}
+.menu-icon .bar{
+    width:100%;
+    height:100%;
+    background:rgb(190, 182, 143);
+    margin:3px 0;
+    transition: 0.3s;
+}
+.menu-icon:hover .bar{
+    background:#58d0a6;
+}
+.menu-icon:active {
+    transform:rotate(360deg);
+}
+.menu-icon2 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+}
+
+@media (max-width: 780px) {
+    .menu-icon{
+        display:flex;
+    }
+    .menu-icon2 {
+        display: none; /* Hidden by default */
+        flex-direction: column;
+        position: absolute;
+        top: 80px;
+        right: 20px;
+        background: #000000aa;
+        padding: 10px;
+        border-radius: 5px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .menu-icon2.open {
+        display: flex; /* Show menu when .open class is added */
+    }
+}
+a{
+    color:#ececec;
+    display:flex;
+    align-items: center;
+    text-decoration: none;
+    height:80px;
+    text-align: center;
+    font-size: 32px;
+    transition: 0.5s;
+    padding:0;
+}
+a:hover{
+    background:#58d0a6;
+    color:black;
+    box-shadow: inset 0 0 5px 0;
+}
+.dropdown{
+    position:relative;
+}
+.dropdown-content{
+    display:none;
+    position: absolute;
+    top:100%;
+    left:0;
+    background:#000000aa;
+    box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
+    border-radius:5px;
+    overflow:hidden;
+    z-index:10;
+    transition:opacity 0.3s ease, transform 0.3s ease;
+    opacity:0;
+    transform:translateY(-10px);
+}
+.dropdown:hover .dropdown-content,
+.dropdown.open .dropdown-content {
+    display:block;
+    opacity: 1;
+    transform: translateY(0);
+}
+.dropdown-content a{
+    text-align: center;
+    height:50px;
+    background-color: #000000aa;
+    color: #ececec;
+    transition:background 0.3s;
+}
+.dropdown-content a:hover{
+    background:#58d0a6;
+    color:black;
+    box-shadow: inset 0 0 5px 0;
+}
+.dropdown:hover .dropdown-content{
+    display:block;
+}
+article{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    gap:50px;
+    height:90vh;
+}
+.Introduce{
     display:flex;
     flex-direction: column;
     align-items: center;
-    gap:20px;
-    margin-top: 20px;
+    justify-content: center;
 }
-button{
-    width:200px;
-    padding: 15px 0;
-    text-align:center;
-    margin: 15px 0;
-    border-radius: 25px;
-    font-weight:bold;
-    border:2px solid #009688;
-    background: transparent;
-    color:#fff;
-    cursor:pointer;
-    overflow: hidden;
+h2{
+    display:flex;
+    font-size:50px;
+    justify-content: center;
+    margin-top: 10px;
+    text-align: center;
+}
+.Picture{
+    display:flex;
     position: relative;
+    justify-content: center;
+    align-items: center;
+    width:350px;
+    height:350px;
+    background:black;
+    border-radius:50%;
 }
-span{
-    background: #009688;
-    height:100%;
-    width:0;
-    border-radius:25px;
-    position:absolute;
-    left:0;
-    bottom:0;
-    z-index:-1;
-    transition:0.5s;
+.Bio{
+    display:flex;
+    align-items: center;
+    text-align: center;
+    font-size:32px;
+    width:600px;
 }
-button:hover span {
-    width: 100%;
+.btn-container{
+    display:flex;
+    justify-content: center;
 }
-button:hover {
-    border:none;
+.btn{
+    width:150px;
+    height:150px;
+    border-radius:50%;
+    background: #000000;
+    color: #ececec;
+    border: none;
+    padding: 10px 20px;
+    font-size: 24px;
+    margin: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+    box-shadow: -1px -2px 4px white,
+                 1px 3px 4px white;
+}
+.btn:hover.Fb{
+    background: #3b5998;
+    box-shadow: -1px -2px 4px #3b5998,
+                 1px 3px 4px #3b5998;
+}
+.btn:hover.Ig{
+    background: linear-gradient(to bottom, #e1306c, #fba732);
+    box-shadow: -1px -2px 4px #e1306c,
+                 1px 3px 4px #fba732;
+}
+.btn:hover.X{
+    background: #1da1f2;
+    box-shadow: -1px -2px 4px #1da1f2,
+                 1px 3px 4px #1da1f2;
+}
+section{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    padding: 20px;
+    background: #cdcdcdd2;
+    border-radius: 10px;
+    margin: 20px;
+    flex-direction: column;
+}
+p{
+    display:flex;
+    max-width: 600px;
+    text-align: center;
 }
 </style>
 <body>
-    <canvas id="myCanvas"></canvas>
-    <div id="clock" style="position:fixed; top:10px; right:10px; color:lime; font-size:20px;">--</div>
-    <div class="overlay" onclick="toggleMenu()"></div>
-        <div class="navbar">
-            <div class="menu-icon" onclick="toggleMenu()">
-                <div class="bar"></div>
-                <div class="bar"></div>
-                <div class="bar"></div>
+    <header>
+        <h1>Title</h1>
+        <div class="menu-icon" onclick="toggleMenu()">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+        <nav class="menu-icon2">
+            <a href="#">Home</a>
+            <a href="#">Shop</a>
+            <a href="#">Donation</a>
+            <div class="dropdown">
+                <a href="#" class="dropdown-toggle">Contact Us</a>
+                <div class="dropdown-content">
+                    <a href="#">Facebook</a>
+                    <a href="#">Instagram</a>
+                    <a href="#">X</a>
+                </div>
             </div>
-            <div class="menu-items">
-                <a href="Ron_blog.html">Home</a>
-                <a href="Video.html">Video</a>
-                <a href="Contact.html">Contact Us</a>
-                <a href="Gallery.html">Gallery</a>
-                <a href="Resume.html">Resume</a>
+        </nav>
+    </header>
+    <script>
+function toggleMenu() {
+    const menuIcon2 = document.querySelector('.menu-icon2');
+    menuIcon2.classList.toggle('open');
+}
+
+// Close the menu when clicking outside
+document.addEventListener('click', (e) => {
+    const menuIcon2 = document.querySelector('.menu-icon2');
+    const menuIcon = document.querySelector('.menu-icon');
+
+    // Check if the click is outside the menu or menu icon
+    if (!menuIcon.contains(e.target) && !menuIcon2.contains(e.target)) {
+        menuIcon2.classList.remove('open');
+    }
+});
+
+// Close the menu after selecting a menu item
+const menuItems = document.querySelectorAll('.menu-icon2 a');
+menuItems.forEach(item => {
+    item.addEventListener('click', () => {
+        const menuIcon2 = document.querySelector('.menu-icon2');
+        menuIcon2.classList.remove('open');
+    });
+});
+    </script>
+    <article>
+        <div class="Introduce">
+            <h2>About Me</h2>
+            <div class="Picture">
+                <img src="https://via.placeholder.com/350" alt="Profile Picture" style="border-radius:50%; width:100%; height:100%;">
+            </div>
+            <div class="Bio">
+                <p>Hello! I'm Ronald, a passionate blogger sharing my thoughts and experiences. Welcome to my blog!</p>
+            </div>
+            <div class="btn-container">
+                <button class="btn Fb">
+                    <?xml version="1.0" ?><svg data-name="Layer 1" id="Layer_1" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <style>
+                                .cls-1 {
+                                    fill: none;
+                                    stroke: #ffffff;
+                                    stroke-miterlimit: 10;
+                                    stroke-width: 6.5px;
+                                }
+                            </style>
+                        </defs>
+                        <title />
+                        <path class="cls-1"
+                            d="M53.68,38.26v15.1H37.11V72H53.68v42H73.29V72H90l2-18.63H73.29V38.26c0-2.67,2.11-4,3-4.82,1.57-1.34,9.15-1.55,9.15-1.55h7.43V15a93.26,93.26,0,0,0-11.68-1C53.11,14,53.68,38.26,53.68,38.26Z" />
+                    </svg>
+                </button>
+                <button class="btn Ig"><?xml version="1.0" ?><svg data-name="Layer 1" id="Layer_1" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <style>
+                            .cls-1 {
+                                fill: #ffffff;
+                            }
+                        </style>
+                    </defs>
+                    <title />
+                    <path class="cls-1"
+                        d="M83,23a22,22,0,0,1,22,22V83a22,22,0,0,1-22,22H45A22,22,0,0,1,23,83V45A22,22,0,0,1,45,23H83m0-8H45A30.09,30.09,0,0,0,15,45V83a30.09,30.09,0,0,0,30,30H83a30.09,30.09,0,0,0,30-30V45A30.09,30.09,0,0,0,83,15Z" />
+                    <path class="cls-1" d="M90.14,32a5.73,5.73,0,1,0,5.73,5.73A5.73,5.73,0,0,0,90.14,32Z" />
+                    <path class="cls-1"
+                        d="M64.27,46.47A17.68,17.68,0,1,1,46.6,64.14,17.7,17.7,0,0,1,64.27,46.47m0-8A25.68,25.68,0,1,0,90,64.14,25.68,25.68,0,0,0,64.27,38.47Z" />
+                </svg>
+                    </button> 
+                <button class="btn X">
+                    <?xml version="1.0" ?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"
+                        id="Layer_1" width="80px" height="80px" viewBox="0 0 24 24" style="enable-background:new 0 0 24 24;" fill="white"
+                        xml:space="preserve">
+                        <path
+                            d="M14.095479,10.316482L22.286354,1h-1.940718l-7.115352,8.087682L7.551414,1H1l8.589488,12.231093L1,23h1.940717  l7.509372-8.542861L16.448587,23H23L14.095479,10.316482z M11.436522,13.338465l-0.871624-1.218704l-6.924311-9.68815h2.981339  l5.58978,7.82155l0.867949,1.218704l7.26506,10.166271h-2.981339L11.436522,13.338465z" />
+                    </svg>
+                </button>
             </div>
         </div>
-    <div class="content">
-        <h1>Welcome to <br />Ronald's website</h1>
-        <div class="button-container">
-            <button type="button" onclick="window.location.href='https://github.com/rgzan'"><span></span>Github</button>
-            <button type="button" onclick="window.location.href='https://www.sololearn.com/en/profile/8597689'"><span></span>Sololearn</button>
-            <button type="button" onclick="window.location.href='#'"><span></span>Test</button>
-            <button type="button" onclick="window.location.href='#'"><span></span>Test</button>
-            <button type="button" onclick="window.location.href='#'"><span></span>test</button>
+        <script>
+            const express = require('express');
+            const app = express();
+
+            app.get('/hello', (req, res) => {
+              res.send('Hello from the backend!');
+            });
+
+            app.listen(3000, () => {
+              console.log('Server running on http://localhost:3000');
+            });
+        </script>
+<!-- Progression bars -->
+<style>
+/* Progress bar */
+.container{
+    bottom:0;
+    position:relative;
+    max-width:500px;
+    width:100%;
+    background: #333;
+    margin:0 15px;
+    padding:10px 20px;
+    border-radius:7px;
+    color:white;
+}
+.container .skill-box{
+    width:100%;
+    margin:25px 0;
+}
+.skill-box .title{
+    display:block;
+    font-size:14px;
+    font-weight:600;
+    color:white;
+}
+.skill-box .skill-bar{
+    height:8px;
+    width:100%;
+    border-radius:6px;
+    margin-top:6px;
+    background:rgba(0,0,0,0.1);
+}
+.skill-bar .skill-per{
+    position:relative;
+    display:block;
+    height:100%;
+    width:44%;
+    border-radius:6px;
+    background:orangered;
+    animation:progress 0.9s ease-in-out forwards;
+    opacity: 0;
+}
+.skill-per.css{
+    width:33%;
+    animation-delay:0.01s;
+    background:#4070f4;
+}
+.skill-per.javascript{
+    width:21%;
+    animation-delay:0.01s;
+    background:orange;
+}
+.skill-per.python{
+    width:4%;
+    animation-delay:0.01s;
+    background:rgb(0, 87, 174);
+}
+.skill-per.java{
+    width:4%;
+    animation-delay:0.01s;
+    background:linear-gradient(210deg,#ff8c00,#0162ff);
+}
+@keyframes progress {
+    0%{
+        width:0;
+        opacity: 0;
+    }
+    100%{
+        opacity:1;
+    }
+}
+.skill-per .tooltip{
+    position:absolute;
+    right:-14px;
+    top:-28px;
+    font-size:9px;
+    font-weight:500;
+    color:#fff;
+    padding:2px 6px;
+    border-radius:3px;
+    background: #4070f4;
+    z-index:1;
+}
+.tooltip::before{
+    content:'';
+    position:absolute;
+    left:50%;
+    bottom:-2px;
+    height:10px;
+    width:10px;
+    z-index:-1;
+    background:#4070f4;
+    transform:translateX(-50%) rotate(45deg);
+}
+</style>
+<div class="container">
+    <div class="skill-box">
+        <span class="title">HTML</span>
+
+        <div class="skill-bar">
+            <span class="skill-per html" data-width="44%">
+                <span class="tooltip">44%</span>
+            </span>
+        </div>
     </div>
+    <div class="skill-box">
+        <span class="title">CSS</span>
+
+        <div class="skill-bar">
+            <span class="skill-per css">
+                <span class="tooltip">33%</span>
+            </span>
+        </div>
     </div>
+    <div class="skill-box">
+        <span class="title">JavaScript</span>
+
+        <div class="skill-bar">
+            <span class="skill-per javascript">
+                <span class="tooltip">21%</span>
+            </span>
+        </div>
+    </div>
+    <div class="skill-box">
+        <span class="title">Python</span>
+
+        <div class="skill-bar">
+            <span class="skill-per python">
+                <span class="tooltip">4%</span>
+            </span>
+        </div>
+    </div>
+        <div class="skill-box">
+        <span class="title">Java</span>
+
+        <div class="skill-bar">
+            <span class="skill-per java">
+                <span class="tooltip">4%</span>
+            </span>
+        </div>
+    </div>
+</div>
 <script>
-    const body = document.body;
-body.style.background = 'black';
+    const skillBars = document.querySelectorAll('.skill-per');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.width = entry.target.dataset.width; // Use data-width for animation
+                observer.unobserve(entry.target); // Stop observing after animation
+            }
+        });
+    });
+    
+    skillBars.forEach(bar => {
+        bar.style.width = '0'; // Set initial width to 0 for animation
+        observer.observe(bar); // Observe each skill bar
+    });
 
-const canvas = document.getElementById('myCanvas');
-const ctx = canvas.getContext('2d');
+// Server.js //
 
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+const express = require('express');
+const app = express();
 
-const letters = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
-const movingLetters = [];
-
-letters.forEach(letter => {
-  movingLetters.push({
-    char: letter.toUpperCase(),
-    x: Math.random() * canvas.width,
-    y: Math.random() * canvas.height,
-    speedX: (Math.random() - 0.5) * 2,
-    speedY: (Math.random() - 0.5) * 2,
-    rotation: Math.random() * 360,
-    rotationSpeed: (Math.random() - 0.5) * 2,
-    opacity: Math.random(),
-    fadeSpeed: Math.random() * 0.01,
-    curveAmplitude: Math.random() * 1 + 5,
-    curveFrequency: Math.random() * 0.1 + 0.1,
-  });
+app.get('/hello', (req, res) => {
+    res.send('Hello from the backend!');
 });
 
-function animation() {
-  ctx.clearRect(0,0, canvas.width, canvas.height);
-
-movingLetters.forEach(letter => {
-  ctx.save();
-
-  ctx.globalAlpha = letter.opacity;
-  ctx.translate(letter.x, letter.y);
-  ctx.rotate((letter.rotation * Math.PI) / 180);
-
-  ctx.font = '20px Arial, sans-serif';
-  ctx.fillStyle = 'lime';
-  ctx.fillText(letter.char,0,0);
-
-  ctx.restore();
-
-  letter.x += letter.speedX;
-  letter.y += letter.speedY;
-  letter.rotation += letter.rotationSpeed;
-  letter.opacity += letter.fadeSpeed;
-
-  letter.y += Math.sin(letter.x * letter.curveFrequency) * letter.curveAmplitude;
-
-  if (letter.x < 0 || letter.x > canvas.width) letter.speedX *= -1;
-  if (letter.y < 0 || letter.y > canvas.height) letter.speedY *= -1;
-  if (letter.opacity <= 0 || letter.opacity >= 1) letter.fadeSpeed *= -1;
+app.listen(3000, () => {
+    console.log('Server running on http://localhost:3000');
 });
-requestAnimationFrame(animation);
-}
-animation();
-
-
-function UpdateTime(){
-    const d = new Date();
-    var hours = d.getHours();
-    var mins = d.getMinutes();
-    var secs = d.getSeconds();
-
-    hours = hours < 10 ? '0' + hours : hours;
-    mins = mins < 10 ? '0' + mins : mins;
-    secs = secs < 10 ? '0' + secs : secs;
-document.getElementById('clock').innerHTML = `${hours}:${mins}:${secs}`;
-}
-setInterval(UpdateTime, 1000);
-
-UpdateTime();
-
-function toggleMenu() {
-    const menuItems = document.querySelector('.menu-items');
-    const overlay = document.querySelector(".overlay");
-
-    menuItems.classList.toggle('open');
-    overlay.classList.toggle('open');
-}
 </script>
+</article>
 </body>
 </html>
